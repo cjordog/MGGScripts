@@ -12,7 +12,6 @@ public class PlayerUtility : MonoBehaviour {
 	private int team;
 
 	private Rigidbody rb;
-
 	void Start()
 	{
 		rb = gameObject.GetComponentInChildren<Rigidbody>();
@@ -58,7 +57,7 @@ public class PlayerUtility : MonoBehaviour {
 		return team;
 	}
 
-	void setTeam(float t)
+	void setTeam(int t)
 	{
 		team = t;
 	}
