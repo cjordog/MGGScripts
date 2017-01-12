@@ -19,6 +19,7 @@ public class PlayerUtility : MonoBehaviour {
 		rb = gameObject.GetComponentInChildren<Rigidbody>();
 	}
 
+	// Test comment
 
 	void setSpawn(Vector3 spawn)
 	{
