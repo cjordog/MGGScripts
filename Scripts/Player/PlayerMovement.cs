@@ -99,4 +99,9 @@ public class PlayerMovement : MonoBehaviour {
 		//NOTE: when rigidbody position is set, it is relative to the scene, NOT ITS PARENT OBJECT
 		rb.transform.position = transform.position + rbOffset;
 	}
+
+	// Temporary Function
+	public void AddForce(Vector3 force) {
+		rb.AddForce(force);
+	}
 }
