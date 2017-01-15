@@ -53,6 +53,10 @@ public class PlayerInputHandler : MonoBehaviour {
         "from a controller")]
     public bool useController = true;
 
+	private uint PlayerIndex {
+		get { return playerNumber - 1; }
+	}
+
     private MovementAxes movement;
     private ActionButtons actions;
 
@@ -73,7 +77,7 @@ public class PlayerInputHandler : MonoBehaviour {
     }
 
     public bool GetAction1()
-    {
+	{
         return Input.GetButtonDown(actions.action1);
     }
 
@@ -84,6 +88,8 @@ public class PlayerInputHandler : MonoBehaviour {
 
     public void Reset()
     {
+		string[] joystickNames = Input.GetJoystickNames();
+
         string suffix = useController ? "-GP" : "";
 
         movement.horizontal = "LeftHorizontal-" + playerNumber +
@@ -91,8 +97,16 @@ public class PlayerInputHandler : MonoBehaviour {
         movement.vertical = "LeftVertical-" + playerNumber +
             suffix;
 
-        actions.action1 = "Action1-" + playerNumber + suffix;
-        actions.action2 = "Action2-" + playerNumber + suffix;
+		if(joystickNames[PlayerIndex] ==
+			"Sony Computer Entertainment Wireless Controller" ||
+			joystickNames[PlayerIndex] == "Unknown Wireless Controller") {
+			actions.action1 = "Action2-" + playerNumber + suffix;
+			actions.action2 = "Action2-" + playerNumber + suffix + "-SONY";
+		}
+		else {
+	        actions.action1 = "Action1-" + playerNumber + suffix;
+	        actions.action2 = "Action2-" + playerNumber + suffix;
+		}
     }
 
     private void SwapMovementAxes(ref MovementAxes other)
