@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(PlayerInputHandler))]
 public class PlayerMovement : MonoBehaviour {
 
 	float vert;
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour {
 	float velocityThreshhold = 0.5f;
 
 	Rigidbody rb;
+	PlayerInputHandler input;
 	public GameObject model;
 
 	Vector3 rbOffset;
@@ -33,6 +35,7 @@ public class PlayerMovement : MonoBehaviour {
 	void Start()
 	{
 		rb = GetComponentInChildren<Rigidbody> ();
+		input = GetComponent<PlayerInputHandler>();
 
 		//record where the rigidbody sits relative to its parent
 		rbOffset = rb.transform.position - gameObject.transform.position;
@@ -43,8 +46,8 @@ public class PlayerMovement : MonoBehaviour {
 	void FixedUpdate () {
 
 
-		vert = Input.GetAxis ("Vertical");
-		horiz = Input.GetAxis ("Horizontal");
+		vert = input.GetVertical;
+		horiz = input.GetHorizontal;
 
 		//controls player movement
 		rb.AddForce (acceleration * (new Vector3 (horiz, 0f, vert)).normalized);
