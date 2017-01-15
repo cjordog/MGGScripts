@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour {
 		horiz = input.GetHorizontal();
 
 		//controls player movement
-		rb.AddForce (acceleration * (new Vector3 (horiz, 0f, vert)).normalized);
+		rb.AddForce (acceleration * (new Vector3 (horiz, 0f, vert)));
 
 		//get current velocity, global and in xz plane
 		currSpeed = rb.velocity.magnitude;

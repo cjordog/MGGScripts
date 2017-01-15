@@ -68,12 +68,12 @@ public class PlayerInputHandler : MonoBehaviour {
 
     public float GetHorizontal()
     {
-        return Input.GetAxis(movement.horizontal);
+        return Input.GetAxisRaw(movement.horizontal);
     }
 
     public float GetVertical()
     {
-        return Input.GetAxis(movement.vertical);
+        return Input.GetAxisRaw(movement.vertical);
     }
 
     public bool GetAction1()
