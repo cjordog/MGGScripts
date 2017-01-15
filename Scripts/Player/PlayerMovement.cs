@@ -46,8 +46,8 @@ public class PlayerMovement : MonoBehaviour {
 	void FixedUpdate () {
 
 
-		vert = input.GetVertical;
-		horiz = input.GetHorizontal;
+		vert = input.GetVertical();
+		horiz = input.GetHorizontal();
 
 		//controls player movement
 		rb.AddForce (acceleration * (new Vector3 (horiz, 0f, vert)).normalized);
