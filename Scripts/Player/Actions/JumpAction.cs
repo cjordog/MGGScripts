@@ -17,6 +17,7 @@ public class JumpAction : PlayerAction {
 
 	public JumpAction() : base(JUMP_DELAY) {
 		RegisterCollisionStay(LandOnGround);
+		RegisterCollisionExit(LeaveGround);
 	}
 
 	public override void StartAction(PlayerMovement movement) {
@@ -27,14 +28,12 @@ public class JumpAction : PlayerAction {
 			grounded = false;
 			jumping = true;
 			RegisterCollisionStay(LandOnGround, false);
-			RegisterCollisionExit(LeaveGround);
 		}
 	}
 
 	public override void EndAction(PlayerMovement movement) {
 		jumping = false;
 		RegisterCollisionStay(LandOnGround);
-		RegisterCollisionExit(LeaveGround, false);
 	}
 
 	void LandOnGround(GameObject sender, Collision col) {
