@@ -23,7 +23,7 @@ public class JumpAction : PlayerAction {
 		Debug.Log(CanJump);
 		Debug.Log("g: " + grounded + " j: " + jumping);
 		if(CanJump) {
-			movement.AddForce(new Vector3(0, 1000, 0));
+			movement.Jump();
 			grounded = false;
 			jumping = true;
 			RegisterCollisionStay(LandOnGround, false);
