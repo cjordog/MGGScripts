@@ -110,7 +110,7 @@ public class PlayerMovement : MonoBehaviour {
 		rb.AddForce(force);
 	}
 
-	void Jump()
+	public void Jump()
 	{
 		rb.AddForce (0, jumpAmount, 0);
 	}
