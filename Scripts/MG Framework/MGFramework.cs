@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class NewBehaviourScript : MonoBehaviour {
+public abstract class MGFramework : MonoBehaviour {
 
 	[SerializeField] private bool useTime;
 	[SerializeField] private int maxTime;
