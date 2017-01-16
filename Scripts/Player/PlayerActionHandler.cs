@@ -23,10 +23,10 @@ public class PlayerActionHandler : MonoBehaviour {
 	}
 
 	void Update() {
-		if (input.GetAction1 ())
-			Action1 ();
-		if (input.GetAction2 ())
-			Action2 ();
+		if (input.GetAction1())
+			Action1();
+		if (input.GetAction2())
+			Action2();
 	}
 
 	public void Action1() {
@@ -35,6 +35,25 @@ public class PlayerActionHandler : MonoBehaviour {
 
 	public void Action2() {
 		StartAction(1);
+	}
+
+	public void SetAction1(Actions.ActionType type) {
+		SetAction(type, 0);
+	}
+
+	public void SetAction2(Actions.ActionType type) {
+		SetAction(type, 1);
+	}
+
+	public void SetActions(Actions.ActionType action1Type,
+		Actions.ActionType action2Type) {
+		SetAction1(action1Type);
+		SetAction2(action2Type);
+	}
+
+	private void SetAction(Actions.ActionType type, uint num) {
+		Debug.Assert(num == 0 || num == 1);
+		actions[num] = Actions.GetAction(type);
 	}
 
 	private void StartAction(int num) {
