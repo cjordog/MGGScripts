@@ -27,8 +27,8 @@ public class PlayerUtility : MonoBehaviour {
 
 	private float health;
 	public float Health {
-		get { return points; }
-		set { points = value; }
+		get { return health; }
+		set { health = value; }
 	}
 
 	private int team;
