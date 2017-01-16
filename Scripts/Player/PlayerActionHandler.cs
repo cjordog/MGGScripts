@@ -2,6 +2,7 @@
 using System.Collections;
 
 [RequireComponent(typeof(PlayerMovement))]
+[RequireComponent(typeof(PlayerInputHandler))]
 public class PlayerActionHandler : MonoBehaviour {
 
 	public Actions.ActionType action1, action2;
@@ -9,14 +10,23 @@ public class PlayerActionHandler : MonoBehaviour {
 	private PlayerAction _action1;
 	private PlayerAction _action2;
 
-	private PlayerAction[] actions;
+	public PlayerAction[] actions;
 	private PlayerMovement movement;
+	private PlayerInputHandler input;
 
 	void Awake() {
 		_action1 = Actions.GetAction(action1);
 		_action2 = Actions.GetAction(action2);
 		actions = new PlayerAction[2] { _action1, _action2 };
 		movement = GetComponent<PlayerMovement>();
+		input = GetComponent<PlayerInputHandler> ();
+	}
+
+	void Update() {
+		if (input.GetAction1 ())
+			Action1 ();
+		if (input.GetAction2 ())
+			Action2 ();
 	}
 
 	public void Action1() {
@@ -44,35 +54,5 @@ public class PlayerActionHandler : MonoBehaviour {
 	private IEnumerator DelayEndAction(int num, float delay) {
 		yield return new WaitForSeconds(delay);
 		EndAction(num);
-	}
-
-	void OnCollisionEnter(Collision col) {
-		for(int i = 0; i < 2; i++)
-			actions[i].collisionHandlers.Enter(gameObject, col);
-	}
-
-	void OnCollisionStay(Collision col) {
-		for(int i = 0; i < 2; i++)
-			actions[i].collisionHandlers.Stay(gameObject, col);
-	}
-
-	void OnCollisionExit(Collision col) {
-		for(int i = 0; i < 2; i++)
-			actions[i].collisionHandlers.Exit(gameObject, col);
-	}
-
-	void OnTriggerEnter(Collider other) {
-		for(int i = 0; i < 2; i++)
-			actions[i].triggerHandlers.Enter(gameObject, other);
-	}
-
-	void OnTriggerStay(Collider other) {
-		for(int i = 0; i < 2; i++)
-			actions[i].triggerHandlers.Stay(gameObject, other);
-	}
-
-	void OnTriggerExit(Collider other) {
-		for(int i = 0; i < 2; i++)
-			actions[i].triggerHandlers.Exit(gameObject, other);
 	}
 }
