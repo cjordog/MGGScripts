@@ -29,6 +29,8 @@ public class PlayerMovement : MonoBehaviour {
 	PlayerInputHandler input;
 	public GameObject model;
 
+	public float jumpAmount = 10;
+
 	Vector3 rbOffset;
 
 
@@ -106,5 +108,10 @@ public class PlayerMovement : MonoBehaviour {
 	// Temporary Function
 	public void AddForce(Vector3 force) {
 		rb.AddForce(force);
+	}
+
+	void Jump()
+	{
+		rb.AddForce (0, jumpAmount, 0);
 	}
 }
