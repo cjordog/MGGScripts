@@ -97,9 +97,9 @@ public class PlayerInputHandler : MonoBehaviour {
         movement.vertical = "LeftVertical-" + playerNumber +
             suffix;
 
-		if(joystickNames[PlayerIndex] ==
+		if(useController && (joystickNames[PlayerIndex] ==
 			"Sony Computer Entertainment Wireless Controller" ||
-			joystickNames[PlayerIndex] == "Unknown Wireless Controller") {
+			joystickNames[PlayerIndex] == "Unknown Wireless Controller")) {
 			actions.action1 = "Action2-" + playerNumber + suffix;
 			actions.action2 = "Action2-" + playerNumber + suffix + "-SONY";
 		}
