@@ -4,26 +4,18 @@ using System.Collections;
 [RequireComponent(typeof(PlayerMovement))]
 public class PlayerActionHandler : MonoBehaviour {
 
-	public PlayerAction action1;
-	public PlayerAction action2;
+	public Actions.ActionType action1, action2;
+
+	private PlayerAction _action1;
+	private PlayerAction _action2;
 
 	private PlayerAction[] actions;
 	private PlayerMovement movement;
 
-	#if UNITY_EDITOR
-	public bool _action1 = false;
-	void Update() {
-		if (_action1) {
-			_action1 = false;
-			Action1();
-		}
-	}
-	#endif
-
 	void Awake() {
-		action1 = new JumpAction();
-		action2 = new NullAction();
-		actions = new PlayerAction[2] { action1, action2 };
+		_action1 = Actions.GetAction(action1);
+		_action2 = Actions.GetAction(action2);
+		actions = new PlayerAction[2] { _action1, _action2 };
 		movement = GetComponent<PlayerMovement>();
 	}
 

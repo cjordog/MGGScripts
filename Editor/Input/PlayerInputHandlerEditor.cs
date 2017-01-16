@@ -11,5 +11,8 @@ public class PlayerInputHandlerEditor : Editor {
 		if(!Application.isPlaying) {
 			DrawDefaultInspector();
 		}
+		else {
+			GUILayout.Label("Player Number: " + ((PlayerInputHandler)target).playerNumber);
+		}
 	}
 }
