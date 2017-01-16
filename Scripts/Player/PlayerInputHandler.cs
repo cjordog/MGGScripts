@@ -89,6 +89,12 @@ public class PlayerInputHandler : MonoBehaviour {
     public void Reset()
     {
 		string[] joystickNames = Input.GetJoystickNames();
+		if(useController && playerNumber > joystickNames.Length) {
+			Debug.LogError(joystickNames.Length + " controllers are connected\n" +
+				"Cannot use player number " + playerNumber + " with a controller");
+			actions.action1 = actions.action2 = "";
+			return;
+		}
 
         string suffix = useController ? "-GP" : "";
 
