@@ -12,7 +12,12 @@ public class PlayerInputHandlerEditor : Editor {
 			DrawDefaultInspector();
 		}
 		else {
-			GUILayout.Label("Player Number: " + ((PlayerInputHandler)target).playerNumber);
+			PlayerInputHandler script = (PlayerInputHandler)target;
+			GUILayout.Label("Player Number: " + script.playerNumber);
+			if(script.useController)
+				GUILayout.Label("Player is using controller");
+			else
+				GUILayout.Label("Player is not using controller");
 		}
 	}
 }
