@@ -40,28 +40,29 @@ public abstract class NewBehaviourScript : MonoBehaviour {
 	}
 
 	void UpdateUI() {
-	};
+	}
 
-	virtual void UpdateActions() {}
+	protected virtual void UpdateActions() {}
 
 	void SpawnPlayers(string action1, string action2, int numPlayers) {
 	}
 
-	virtual bool Respawn(uint num) {
+	protected virtual bool Respawn(uint num) {
+		return true;
 	}
 
 	void RulesPopup(string description,
 		string action1, string action2, string leftAxis = "Move") {
 	}
 
-	virtual void StartMinigame() {
+	protected virtual void StartMinigame() {
 		// Do this after countdown
 		isRunning = true;
 		currentTime = maxTime;
 		// Get player references
 	}
 
-	virtual void EndMinigame() {
+	protected virtual void EndMinigame() {
 		isRunning = false;
 	}
 
