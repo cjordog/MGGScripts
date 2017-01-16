@@ -3,17 +3,16 @@ using System.Collections;
 
 public abstract class MGFramework : MonoBehaviour {
 
-	[SerializeField] private bool useTime;
-	[SerializeField] private int maxTime;
-	[SerializeField] private float currentTime;
+	[SerializeField] protected bool useTime;
+	[SerializeField] protected int maxTime;
+	[SerializeField] protected float currentTime;
 
 	protected bool isRunning = false;
 	public bool IsRunning {
 		get { return isRunning; }
 	}
 
-
-	private PlayerUtility[] players;
+	protected PlayerUtility[] players;
 	public Vector3[] spawnPoints;
 
 	void Start () {
