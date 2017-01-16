@@ -8,10 +8,15 @@ public class MG_TimeBomb : MGFramework {
 	public GameObject powerup;
 	float boundsX;
 
+	int deadPlayers;
+
 
 	void Update() {
 		if (Random.value < powerUpSpawnRate)
 			SpawnPowerup ();
+
+		if (isRunning)
+			UpdateHealth ();
 	}
 
 	protected override void StartMinigame ()
@@ -36,4 +41,20 @@ public class MG_TimeBomb : MGFramework {
 		Instantiate (powerup, loc, Quaternion.identity);
 	}
 
+	void UpdateHealth() {
+		for (int i = 0; i < players.Length; ++i) {
+			if (players[i].Health > 0f)
+				players[i].Health -= Time.deltaTime;
+			else {
+				players [i].Health = 0f;
+			}
+
+			if (players [i].Health <= 0f) {
+				killPlayer (i);
+				deadPlayers++;
+			}
+			if (deadPlayers == players.Length)
+				EndMinigame ();
+		}
+	}
 }

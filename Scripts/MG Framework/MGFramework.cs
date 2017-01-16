@@ -65,5 +65,7 @@ public abstract class MGFramework : MonoBehaviour {
 		isRunning = false;
 	}
 
-
+	protected virtual void killPlayer(int playerNum) {
+		//fill later
+	}
 }
