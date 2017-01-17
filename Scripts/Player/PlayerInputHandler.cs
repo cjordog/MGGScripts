@@ -47,13 +47,29 @@ public class PlayerInputHandler : MonoBehaviour {
         "Represents which controller or keyboard controls to use. " +
         "May not correspond to who is considered \"first player.\"")]
     [Range(1, 4)]
-    public uint playerNumber = 1;
+	[SerializeField]
+    private int playerNumber = 1;
+	public int PlayerNumber {
+		get { return playerNumber; }
+		set {
+			playerNumber = value;
+			ResetInputNames();
+		}
+	}
 
     [Tooltip("Whether or not this player's input should be gotten " +
         "from a controller")]
-    public bool useController = true;
+	[SerializeField]
+    private bool useController = true;
+	public bool UseController {
+		get { return useController; }
+		set {
+			useController = value;
+			ResetInputNames();
+		}
+	}
 
-	private uint PlayerIndex {
+	private int PlayerIndex {
 		get { return playerNumber - 1; }
 	}
 
@@ -63,7 +79,7 @@ public class PlayerInputHandler : MonoBehaviour {
 
     void Awake()
     {
-        Reset();
+        ResetInputNames();
     }
 
     public float GetHorizontal()
@@ -86,11 +102,11 @@ public class PlayerInputHandler : MonoBehaviour {
         return Input.GetButtonDown(actions.action2);
     }
 
-    public void Reset()
+    public void ResetInputNames()
     {
 		string[] joystickNames = Input.GetJoystickNames();
 		if(useController && playerNumber > joystickNames.Length) {
-			Debug.LogError(joystickNames.Length + " controllers are connected\n" +
+			Debug.LogWarning(joystickNames.Length + " controllers are connected\n" +
 				"Cannot use player number " + playerNumber + " with a controller");
 			actions.action1 = actions.action2 = "";
 			return;
