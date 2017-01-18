@@ -8,30 +8,33 @@ using UnityEditor;
 public class PlayerInputHandlerEditor : Editor {
 	
 	private readonly string[] controlOptions = new string[2] { "Keyboard", "Controller" };
-
-//	private GUIContent[] playerNumberOptions = new GUIContent[4] {
-//		new GUIContent("1"),
-//		new GUIContent("2"),
-//		new GUIContent("3"),
-//		new GUIContent("4")
-//	};
+	private readonly string[] playerNumOptions = new string[4] { "1", "2", "3", "4" };
 
 	public override void OnInspectorGUI() {
 		PlayerInputHandler script = (PlayerInputHandler)target;
 
-		script.PlayerNumber = EditorGUILayout.IntSlider(new GUIContent("Player Number",
+		// Player Number Style
+		GUIStyle centeredLabel = new GUIStyle(GUI.skin.label);
+		centeredLabel.alignment = TextAnchor.MiddleCenter;
+		centeredLabel.fontStyle = FontStyle.BoldAndItalic;
+
+		// Player Number Label
+		EditorGUILayout.LabelField(new GUIContent("Player Number",
 			"The \"number\" of the player. " +
 			"Represents which controller or keyboard controls to use. " +
-			"May not correspond to who is considered \"first player.\""),
-			script.PlayerNumber, 1, 4);
+			"May not correspond to who is considered \"first player.\""), centeredLabel);
 
-//		script.PlayerNumber = EditorGUILayout.Popup(new GUIContent("Player Number",
-//			"The \"number\" of the player. " +
-//			"Represents which controller or keyboard controls to use. " +
-//			"May not correspond to who is considered \"first player.\""),
-//			script.PlayerNumber, playerNumberOptions);
+		// Player Select
+		EditorGUILayout.BeginHorizontal();
+		script.PlayerNumber = GUILayout.SelectionGrid(script.PlayerNumber - 1, playerNumOptions, 4) + 1;
+		EditorGUILayout.EndHorizontal();
 
-		script.UseController = (EditorGUILayout.Popup(script.UseController ? 1 : 0,
-			controlOptions) == 1) ? true : false;
+		EditorGUILayout.Space();
+
+		// Control Method Select
+		EditorGUILayout.BeginHorizontal();
+		script.UseController = GUILayout.SelectionGrid(script.UseController ? 1 : 0,
+			controlOptions, 2) == 1 ? true : false;
+		EditorGUILayout.EndHorizontal();
 	}
 }
