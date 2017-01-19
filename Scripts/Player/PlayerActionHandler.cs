@@ -5,30 +5,33 @@ using System.Collections;
 [RequireComponent(typeof(PlayerInputHandler))]
 public class PlayerActionHandler : MonoBehaviour {
 
-	public Actions.ActionType action1, action2;
+	public Actions.ActionType actionType1, actionType2;
 
-	private PlayerAction _action1;
-	private PlayerAction _action2;
+	private PlayerAction action1;
+	private PlayerAction action2;
 
 	public PlayerAction[] actions;
-	private bool[] onCooldown;
 
 	private PlayerMovement movement;
 	private PlayerInputHandler input;
 
 	void Awake() {
-		_action1 = Actions.GetAction(action1);
-		_action2 = Actions.GetAction(action2);
-		actions = new PlayerAction[2] { _action1, _action2 };
-		onCooldown = new bool[2];
+		if(actionType1 == actionType2) {
+			action1 = action2 = Actions.GetAction(actionType1);
+		}
+		else {
+			action1 = Actions.GetAction(actionType1);
+			action2 = Actions.GetAction(actionType2);
+		}
+		actions = new PlayerAction[2] { action1, action2 };
 		movement = GetComponent<PlayerMovement>();
 		input = GetComponent<PlayerInputHandler> ();
 	}
 
 	void Update() {
-		if (input.GetAction1() && !onCooldown[0])
+		if (!action1.OnCooldown && input.GetAction1())
 			Action1();
-		if (input.GetAction2() && !onCooldown[1])
+		if (!action2.OnCooldown && input.GetAction2())
 			Action2();
 	}
 
@@ -68,7 +71,7 @@ public class PlayerActionHandler : MonoBehaviour {
 		}
 		if(actions[num].Cooldown != 0) {
 			Debug.Assert(actions[num].Cooldown > 0);
-			onCooldown[num] = true;
+			actions[num].OnCooldown = true;
 			StartCoroutine(OffCooldown(num, actions[num].Cooldown));
 		}
 	}
@@ -85,6 +88,6 @@ public class PlayerActionHandler : MonoBehaviour {
 
 	private IEnumerator OffCooldown(int num, float delay) {
 		yield return new WaitForSeconds(delay);
-		onCooldown[num] = false;
+		actions[num].OnCooldown = false;
 	}
 }
