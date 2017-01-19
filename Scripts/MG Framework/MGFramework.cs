@@ -59,7 +59,7 @@ public abstract class MGFramework : MonoBehaviour {
 		return;
 	}
 
-	protected void SpawnPlayers(Actions.ActionType[] actions) {
+	protected void SpawnPlayers(PlayerActions.ActionType[] actions) {
 		for (int i = 0; i < numPlayers; i++) {
 			//create player object
 			GameObject player = (GameObject)Instantiate (playerPrefab, spawnPoints [i], Quaternion.identity);
@@ -67,7 +67,7 @@ public abstract class MGFramework : MonoBehaviour {
 			//initialize controls
 			PlayerInputHandler ih = player.GetComponent<PlayerInputHandler> ();
 			PlayerActionHandler ah = player.GetComponent<PlayerActionHandler> ();
-			ih.PlayerNumber = i+1;
+			ih.ControlNumber = i+1;
 			ih.UseController = data.players [i].useController;
 			ah.SetActions (actions [0], actions [1]);
 
