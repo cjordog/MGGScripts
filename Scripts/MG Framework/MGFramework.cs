@@ -14,8 +14,21 @@ public abstract class MGFramework : MonoBehaviour {
 
 	protected PlayerUtility[] players;
 	public Vector3[] spawnPoints;
+	protected int numPlayers;
+	public GlobalData data;
+
+	protected const int maxPlayers = 4;
+
+	public float acceleration, drag, maxSpeed, jumpAmount;
+	public Vector3 gravity;
+
+	public GameObject playerPrefab;
 
 	void Start () {
+		//variable initialization
+		data = GameObject.FindGameObjectWithTag ("Data").GetComponent<GlobalData> ();
+		numPlayers = data.NumPlayers;
+
 		StartMinigame();
 	}
 
@@ -24,7 +37,7 @@ public abstract class MGFramework : MonoBehaviour {
 			if(useTime)
 				UpdateTimer();
 			UpdateUI();
-			UpdateActions();
+			GameLoop();
 		}
 	}
 
@@ -39,11 +52,35 @@ public abstract class MGFramework : MonoBehaviour {
 	}
 
 	void UpdateUI() {
+		
 	}
 
-	protected virtual void UpdateActions() {}
+	protected virtual void GameLoop() {
+		return;
+	}
 
-	void SpawnPlayers(string action1, string action2, int numPlayers) {
+	protected void SpawnPlayers(Actions.ActionType[] actions) {
+		for (int i = 0; i < numPlayers; i++) {
+			//create player object
+			GameObject player = (GameObject)Instantiate (playerPrefab, spawnPoints [i], Quaternion.identity);
+
+			//initialize controls
+			PlayerInputHandler ih = player.GetComponent<PlayerInputHandler> ();
+			PlayerActionHandler ah = player.GetComponent<PlayerActionHandler> ();
+			ih.PlayerNumber = i+1;
+			ih.UseController = data.players [i].useController;
+			ah.SetActions (actions [0], actions [1]);
+
+			//set playerUtility
+			players[i] = player.GetComponent<PlayerUtility> ();
+
+			//TODO:handle team allocation here later. passing in as i for now
+			players [i].initializeVariables (spawnPoints [i], 0, players [i].healthcap, i);
+
+			//set PlayerMovement to minigame settings
+			PlayerMovement mv = player.GetComponent<PlayerMovement>();
+			setMovementVariables (mv, acceleration, drag, maxSpeed, jumpAmount);
+		}
 	}
 
 	protected virtual bool Respawn(uint num) {
@@ -67,5 +104,13 @@ public abstract class MGFramework : MonoBehaviour {
 
 	protected virtual void killPlayer(int playerNum) {
 		//fill later
+	}
+
+	protected virtual void setMovementVariables(PlayerMovement pm, float accel, float drag, float maxSpeed, float jumpHeight)
+	{
+		pm.acceleration = accel;
+		pm.drag = drag;
+		pm.maxSpeed = maxSpeed;
+		pm.jumpAmount = jumpHeight;
 	}
 }

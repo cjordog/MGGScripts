@@ -8,9 +8,11 @@ public class MG_TimeBomb : MGFramework {
 	public GameObject powerup;
 	float boundsX;
 
+	public 
+
 	int deadPlayers;
 
-	public string[] actions = new string[2];
+	public Actions.ActionType[] actions = new Actions.ActionType[2];
 
 	void Update() {
 		if (Random.value < powerUpSpawnRate)
@@ -22,14 +24,24 @@ public class MG_TimeBomb : MGFramework {
 
 	protected override void StartMinigame ()
 	{
-		actions [0] = "Jump";
+		actions[0] = Actions.ActionType.Jump;
+		actions [1] = Actions.ActionType.Null;
 		base.StartMinigame ();
 
 		Mesh planeMesh = gameField.GetComponent<MeshFilter>().mesh;
 		Bounds bounds = planeMesh.bounds;
 		boundsX = planeMesh.bounds.size.x * 5f;
 
+		acceleration = 80f;
+		drag = 10f;
+		maxSpeed = 10f;
+		jumpAmount = 1000f;
+
+		Physics.gravity =  new Vector3(0, -30f, 0);
+
 		// Spawn players
+		spawnPoints = new Vector3[maxPlayers] 
+			{ new Vector3 (5, 0, 5), new Vector3 (5, 0, -5), new Vector3 (-5, 0, -5), new Vector3 (-5, 0, 5) };
 		SpawnPlayers(actions);
 	}
 

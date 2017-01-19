@@ -30,11 +30,12 @@ public class GlobalData : MonoBehaviour {
 		}
 	}   
 
-	public int AddPlayerData(int controlNum, bool uesController) {
+	public int AddPlayerData(int controlNum, bool useController = false) {
 		if(numPlayers < 3 && numPlayers >= 0) {
 			players[numPlayers].points = 0;
 			players[numPlayers].hats = new string[5];
 			numPlayers++;
+			players [numPlayers].useController = useController;
 			return numPlayers - 1;
 		}
 		else {

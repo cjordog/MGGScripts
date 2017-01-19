@@ -27,7 +27,7 @@ public class PlayerUtility : MonoBehaviour {
 	}
 		
 	[Tooltip("How much health the player is allowed to have.")]
-	[SerializeField] protected float healthcap = 100;
+	[SerializeField] public float healthcap = 100;
 	private float health;
 	public float Health {
 		get { return health; }
@@ -68,5 +68,13 @@ public class PlayerUtility : MonoBehaviour {
 	public void Respawn()
 	{
 		gameObject.transform.position = spawnPoint;
+	}
+
+	public void initializeVariables(Vector3 spawnPoint, float points, float health, int team)
+	{
+		SpawnPoint = spawnPoint;
+		Points = points;
+		Health = health;
+		Team = team;
 	}
 }

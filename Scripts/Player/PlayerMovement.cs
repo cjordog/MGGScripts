@@ -41,7 +41,6 @@ public class PlayerMovement : MonoBehaviour {
 
 		//record where the rigidbody sits relative to its parent
 		rbOffset = rb.transform.position - gameObject.transform.position;
-		Physics.gravity = new Vector3(0, -30f, 0);
 	}
 		
 
