@@ -19,7 +19,8 @@ public class PlayerInputHandlerEditor : Editor {
 		centeredLabel.fontStyle = FontStyle.BoldAndItalic;
 
 		// Player Number Label
-		EditorGUILayout.LabelField(new GUIContent(controlOptions[script.UseController ? 1 : 0] + " Number",
+		EditorGUILayout.LabelField(new GUIContent(
+			controlOptions[script.UseController ? 1 : 0] + " Number",
 			"The \"number\" of the controller this player uses. " +
 			"Represents which controller or keyboard controls to use."), centeredLabel);
 
