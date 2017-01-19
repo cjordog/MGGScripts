@@ -24,11 +24,18 @@ public class PlayerUtility : MonoBehaviour {
 		get { return points; }
 		set { points = value; }
 	}
-
+		
+	[Tooltip("How much health the player is allowed to have.")]
+	private float healthcap = 100;
 	private float health;
 	public float Health {
 		get { return health; }
 		set { health = value; }
+	}
+
+	public void addHealth(float value) {
+		if (health > 0 && health < healthcap)
+			health += value;
 	}
 
 	private int team;
