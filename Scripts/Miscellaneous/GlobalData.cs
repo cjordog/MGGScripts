@@ -9,7 +9,7 @@ public class GlobalData : MonoBehaviour {
 		set { numPlayers = value; }
 	}
 
-	struct PlayerData {
+	public struct PlayerData {
 		public int points;
 		//placeholder
 		public string[] hats;
