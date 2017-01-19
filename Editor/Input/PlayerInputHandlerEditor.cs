@@ -26,7 +26,7 @@ public class PlayerInputHandlerEditor : Editor {
 
 		// Player Select
 		EditorGUILayout.BeginHorizontal();
-		script.PlayerNumber = GUILayout.SelectionGrid(script.PlayerNumber - 1, playerNumOptions, 4) + 1;
+		script.ControlNumber = GUILayout.SelectionGrid(script.ControlNumber - 1, playerNumOptions, 4) + 1;
 		EditorGUILayout.EndHorizontal();
 
 		EditorGUILayout.Space();
