@@ -39,6 +39,7 @@ public class GlobalData : MonoBehaviour {
 		}
 		else {
 			Debug.LogError("Maximum Players Reached: 4");
+			return -1;
 		}
 	}
 
@@ -53,5 +54,6 @@ public class GlobalData : MonoBehaviour {
 			players[i] = players[i + 1];
 		}
 		numPlayers--;
+		return true;
 	}
 }
