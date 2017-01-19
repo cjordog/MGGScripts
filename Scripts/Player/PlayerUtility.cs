@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+[RequireComponent(typeof(PlayerInputHandler))]
 public class PlayerUtility : MonoBehaviour {
 
 	////////////////////////////////////////////
@@ -26,7 +27,7 @@ public class PlayerUtility : MonoBehaviour {
 	}
 		
 	[Tooltip("How much health the player is allowed to have.")]
-	private float healthcap = 100;
+	[SerializeField] protected float healthcap = 100;
 	private float health;
 	public float Health {
 		get { return health; }
