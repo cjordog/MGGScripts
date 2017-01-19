@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MG_TimeBomb : MGFramework {
 
-	public float powerUpSpawnRate = 0.25f;
+	public float powerupSpawnInterval = 0.2f;
 	public GameObject gameField;
 	public GameObject powerup;
 	float boundsX;
@@ -13,9 +13,6 @@ public class MG_TimeBomb : MGFramework {
 	public string[] actions = new string[2];
 
 	void Update() {
-		if (Random.value < powerUpSpawnRate)
-			SpawnPowerup ();
-
 		if (isRunning)
 			UpdateHealth ();
 	}
@@ -30,7 +27,10 @@ public class MG_TimeBomb : MGFramework {
 		boundsX = planeMesh.bounds.size.x * 5f;
 
 		// Spawn players
-		SpawnPlayers(actions);
+		//SpawnPlayers(actions);
+
+		// Start spawning powerups
+		SpawnPowerup();
 	}
 
 	void SpawnPowerup() {
@@ -38,6 +38,9 @@ public class MG_TimeBomb : MGFramework {
 		float zLoc = Random.value * boundsX - boundsX / 2;
 		Vector3 loc = new Vector3 (xLoc, powerup.transform.localScale.y, zLoc);
 		Instantiate (powerup, loc, Quaternion.identity);
+
+		if (isRunning)
+			Invoke ("SpawnPowerup", powerupSpawnInterval);
 	}
 
 	void UpdateHealth() {
