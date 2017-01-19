@@ -3,8 +3,9 @@ using System.Collections.Generic;
 
 public abstract class PlayerAction {
 
-	public PlayerAction(float duration = Mathf.Infinity) {
+	public PlayerAction(float duration = Mathf.Infinity, float cooldown = 0) {
 		m_duration = duration;
+		m_cooldown = cooldown;
 	}
 
 	public delegate void CollisionHandler(GameObject sender, Collision col);
@@ -52,6 +53,11 @@ public abstract class PlayerAction {
 	private float m_duration;
 	public float Duration {
 		get { return m_duration; }
+	}
+
+	private float m_cooldown;
+	public float Cooldown {
+		get { return m_cooldown; }
 	}
 
 
