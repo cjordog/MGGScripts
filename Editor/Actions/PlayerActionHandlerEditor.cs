@@ -7,8 +7,8 @@ using UnityEditor;
 [CanEditMultipleObjects]
 public class PlayerActionHandlerEditor : Editor {
 
-	private Actions.ActionType a1;
-	private Actions.ActionType a2;
+	private MGG.PlayerActions.ActionType a1;
+	private MGG.PlayerActions.ActionType a2;
 
 	public override void OnInspectorGUI() {
 		DrawDefaultInspector();
