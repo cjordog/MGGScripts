@@ -19,14 +19,14 @@ public class PlayerInputHandlerEditor : Editor {
 		centeredLabel.fontStyle = FontStyle.BoldAndItalic;
 
 		// Player Number Label
-		EditorGUILayout.LabelField(new GUIContent("Player Number",
-			"The \"number\" of the player. " +
-			"Represents which controller or keyboard controls to use. " +
-			"May not correspond to who is considered \"first player.\""), centeredLabel);
+		EditorGUILayout.LabelField(new GUIContent(
+			controlOptions[script.UseController ? 1 : 0] + " Number",
+			"The \"number\" of the controller this player uses. " +
+			"Represents which controller or keyboard controls to use."), centeredLabel);
 
 		// Player Select
 		EditorGUILayout.BeginHorizontal();
-		script.PlayerNumber = GUILayout.SelectionGrid(script.PlayerNumber - 1, playerNumOptions, 4) + 1;
+		script.ControlNumber = GUILayout.SelectionGrid(script.ControlNumber - 1, playerNumOptions, 4) + 1;
 		EditorGUILayout.EndHorizontal();
 
 		EditorGUILayout.Space();

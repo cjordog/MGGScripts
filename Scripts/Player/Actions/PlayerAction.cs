@@ -6,6 +6,7 @@ public abstract class PlayerAction {
 	public PlayerAction(float duration = Mathf.Infinity, float cooldown = 0) {
 		m_duration = duration;
 		m_cooldown = cooldown;
+		m_onCooldown = false;
 	}
 
 	public delegate void CollisionHandler(GameObject sender, Collision col);
@@ -58,6 +59,12 @@ public abstract class PlayerAction {
 	private float m_cooldown;
 	public float Cooldown {
 		get { return m_cooldown; }
+	}
+
+	private bool m_onCooldown;
+	public bool OnCooldown {
+		get { return m_onCooldown; }
+		set { m_onCooldown = value; }
 	}
 
 

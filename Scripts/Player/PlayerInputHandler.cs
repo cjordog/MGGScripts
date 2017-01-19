@@ -48,11 +48,11 @@ public class PlayerInputHandler : MonoBehaviour {
         "May not correspond to who is considered \"first player.\"")]
     [Range(1, 4)]
 	[SerializeField]
-    private int playerNumber = 1;
-	public int PlayerNumber {
-		get { return playerNumber; }
+    private int controlNumber = 1;
+	public int ControlNumber {
+		get { return controlNumber; }
 		set {
-			playerNumber = value;
+			controlNumber = value;
 			ResetInputNames();
 		}
 	}
@@ -70,7 +70,17 @@ public class PlayerInputHandler : MonoBehaviour {
 	}
 
 	private int PlayerIndex {
-		get { return playerNumber - 1; }
+		get { return controlNumber - 1; }
+	}
+
+	public struct ControlSettings {
+		public int num;
+		public bool useController;
+
+		public ControlSettings(int _num, bool _useController) {
+			num = _num;
+			useController = _useController;
+		}
 	}
 
     private MovementAxes movement;
@@ -102,32 +112,85 @@ public class PlayerInputHandler : MonoBehaviour {
         return Input.GetButtonDown(actions.action2);
     }
 
+	public static List<ControlSettings> GetAllAction1() {
+		return GetAllAction(0);
+	}
+
+	public static List<ControlSettings> GetAllAction2() {
+		return GetAllAction(1);
+	}
+
+	private static List<ControlSettings> GetAllAction(int index) {
+		List<ControlSettings> pressedSettings = new List<ControlSettings>();
+
+		for(int i = 0; i < 4; i++) {
+			for(int j = 0; j < 2; j++) {
+				bool useControllerSetting = false;
+				if(j == 1) useControllerSetting = true;
+
+				ControlSettings checkSettings = new ControlSettings(i, useControllerSetting);
+				bool pressed = GetAction(index, checkSettings);
+
+				if(pressed) {
+					pressedSettings.Add(checkSettings);
+				}
+			}
+		}
+
+		return pressedSettings;
+	}
+
+	private static bool GetAction(int actionIndex, ControlSettings settings) {
+		int actionNum = actionIndex + 1;
+		int controllerNum = settings.num + 1;
+		bool useController = settings.useController;
+		string[] joystickNames = Input.GetJoystickNames();
+		if(settings.useController && settings.num >= joystickNames.Length) {
+			return false;
+		}
+
+		string suffix = controllerNum.ToString();
+		suffix += settings.useController ? "-GP" : "";
+
+		if(settings.useController && (joystickNames[settings.num] ==
+			"Sony Computer Entertainment Wireless Controller" ||
+			joystickNames[settings.num] == "Unknown Wireless Controller")) {
+			if(actionNum == 1) suffix += "-SONY";
+			// Debug.Log("Action2-" + suffix);
+			return Input.GetButtonDown("Action2-" + suffix);
+		}
+		else {
+			// Debug.Log("Action" + actionNum + "-" + suffix);
+			return Input.GetButtonDown("Action" + actionNum + "-" + suffix);
+		}
+	}
+
     public void ResetInputNames()
     {
 		string[] joystickNames = Input.GetJoystickNames();
-		if(useController && playerNumber > joystickNames.Length) {
+		if(useController && controlNumber > joystickNames.Length) {
 			Debug.LogWarning(joystickNames.Length + " controllers are connected\n" +
-				"Cannot use player number " + playerNumber + " with a controller");
+				"Cannot use player number " + controlNumber + " with a controller");
 			actions.action1 = actions.action2 = "";
 			return;
 		}
 
         string suffix = useController ? "-GP" : "";
 
-        movement.horizontal = "LeftHorizontal-" + playerNumber +
+        movement.horizontal = "LeftHorizontal-" + controlNumber +
             suffix;
-        movement.vertical = "LeftVertical-" + playerNumber +
+        movement.vertical = "LeftVertical-" + controlNumber +
             suffix;
 
 		if(useController && (joystickNames[PlayerIndex] ==
 			"Sony Computer Entertainment Wireless Controller" ||
 			joystickNames[PlayerIndex] == "Unknown Wireless Controller")) {
-			actions.action1 = "Action2-" + playerNumber + suffix;
-			actions.action2 = "Action2-" + playerNumber + suffix + "-SONY";
+			actions.action1 = "Action2-" + controlNumber + suffix;
+			actions.action2 = "Action2-" + controlNumber + suffix + "-SONY";
 		}
 		else {
-	        actions.action1 = "Action1-" + playerNumber + suffix;
-	        actions.action2 = "Action2-" + playerNumber + suffix;
+	        actions.action1 = "Action1-" + controlNumber + suffix;
+	        actions.action2 = "Action2-" + controlNumber + suffix;
 		}
     }
 
