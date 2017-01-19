@@ -11,6 +11,8 @@ public class PlayerActionHandler : MonoBehaviour {
 	private PlayerAction _action2;
 
 	public PlayerAction[] actions;
+	private bool[] onCooldown;
+
 	private PlayerMovement movement;
 	private PlayerInputHandler input;
 
@@ -18,14 +20,15 @@ public class PlayerActionHandler : MonoBehaviour {
 		_action1 = Actions.GetAction(action1);
 		_action2 = Actions.GetAction(action2);
 		actions = new PlayerAction[2] { _action1, _action2 };
+		onCooldown = new bool[2];
 		movement = GetComponent<PlayerMovement>();
 		input = GetComponent<PlayerInputHandler> ();
 	}
 
 	void Update() {
-		if (input.GetAction1())
+		if (input.GetAction1() && !onCooldown[0])
 			Action1();
-		if (input.GetAction2())
+		if (input.GetAction2() && !onCooldown[1])
 			Action2();
 	}
 
@@ -63,6 +66,11 @@ public class PlayerActionHandler : MonoBehaviour {
 			Debug.Assert(actions[num].Duration >= 0);
 			StartCoroutine(DelayEndAction(num, actions[num].Duration));
 		}
+		if(actions[num].Cooldown != 0) {
+			Debug.Assert(actions[num].Cooldown > 0);
+			onCooldown[num] = true;
+			StartCoroutine(OffCooldown(num, actions[num].Cooldown));
+		}
 	}
 
 	private void EndAction(int num) {
@@ -73,5 +81,10 @@ public class PlayerActionHandler : MonoBehaviour {
 	private IEnumerator DelayEndAction(int num, float delay) {
 		yield return new WaitForSeconds(delay);
 		EndAction(num);
+	}
+
+	private IEnumerator OffCooldown(int num, float delay) {
+		yield return new WaitForSeconds(delay);
+		onCooldown[num] = false;
 	}
 }
