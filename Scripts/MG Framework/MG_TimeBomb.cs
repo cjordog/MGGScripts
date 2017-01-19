@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using MGG;
 
 public class MG_TimeBomb : MGFramework {
 
@@ -12,7 +13,7 @@ public class MG_TimeBomb : MGFramework {
 
 	int deadPlayers;
 
-	public Actions.ActionType[] actions = new Actions.ActionType[2];
+	public PlayerActions.ActionType[] actions = new PlayerActions.ActionType[2];
 
 	void Update() {
 		if (isRunning)
@@ -21,8 +22,8 @@ public class MG_TimeBomb : MGFramework {
 
 	protected override void StartMinigame ()
 	{
-		actions[0] = Actions.ActionType.Jump;
-		actions [1] = Actions.ActionType.Null;
+		actions[0] = PlayerActions.ActionType.Jump;
+		actions [1] = PlayerActions.ActionType.Null;
 		base.StartMinigame ();
 
 		Mesh planeMesh = gameField.GetComponent<MeshFilter>().mesh;
