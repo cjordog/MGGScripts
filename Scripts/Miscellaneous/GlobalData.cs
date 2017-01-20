@@ -3,7 +3,8 @@ using System.Collections;
 
 public class GlobalData : MonoBehaviour {
 
-	private int numPlayers;
+	//public for testing, should be private
+	public int numPlayers;
 	public int NumPlayers {
 		get { return numPlayers; }
 		set { numPlayers = value; }
@@ -21,7 +22,7 @@ public class GlobalData : MonoBehaviour {
 
 	private bool initialized = false;
 
-	void Start() {
+	void Awake() {
 		if(!initialized) {
 			numPlayers = 0;
 			players = new PlayerData[4];
@@ -34,8 +35,8 @@ public class GlobalData : MonoBehaviour {
 		if(numPlayers < 3 && numPlayers >= 0) {
 			players[numPlayers].points = 0;
 			players[numPlayers].hats = new string[5];
-			numPlayers++;
 			players [numPlayers].useController = useController;
+			numPlayers++;
 			return numPlayers - 1;
 		}
 		else {

@@ -4,51 +4,51 @@ using UnityEngine;
 
 public class PlayerInputHandler : MonoBehaviour {
 
-    struct MovementAxes
-    {
-        public string horizontal;
-        public string vertical;
+	struct MovementAxes
+	{
+		public string horizontal;
+		public string vertical;
 
-        public MovementAxes(string h, string v)
-        {
-            horizontal = h;
-            vertical = v;
-        }
+		public MovementAxes(string h, string v)
+		{
+			horizontal = h;
+			vertical = v;
+		}
 
-        public static void Swap(ref MovementAxes a, ref MovementAxes b)
-        {
-            MovementAxes temp = b;
-            b = a;
-            a = temp;
-        }
-    }
+		public static void Swap(ref MovementAxes a, ref MovementAxes b)
+		{
+			MovementAxes temp = b;
+			b = a;
+			a = temp;
+		}
+	}
 
-    struct ActionButtons
-    {
-        public string action1;
-        public string action2;
+	struct ActionButtons
+	{
+		public string action1;
+		public string action2;
 
-        public ActionButtons(string a1, string a2)
-        {
-            action1 = a1;
-            action2 = a2;
-        }
+		public ActionButtons(string a1, string a2)
+		{
+			action1 = a1;
+			action2 = a2;
+		}
 
-        public static void Swap(ref ActionButtons a, ref ActionButtons b)
-        {
-            ActionButtons temp = b;
-            b = a;
-            a = temp;
-        }
-    }
+		public static void Swap(ref ActionButtons a, ref ActionButtons b)
+		{
+			ActionButtons temp = b;
+			b = a;
+			a = temp;
+		}
+	}
 
 
-    [Tooltip("The \"number\" of the player. " +
-        "Represents which controller or keyboard controls to use. " +
-        "May not correspond to who is considered \"first player.\"")]
-    [Range(1, 4)]
+	[Tooltip("The \"number\" of the player. " +
+		"Represents which controller or keyboard controls to use. " +
+		"May not correspond to who is considered \"first player.\"")]
+	[Range(1, 4)]
 	[SerializeField]
-    private int controlNumber = 1;
+	private int controlNumber = 1;
 	public int ControlNumber {
 		get { return controlNumber; }
 		set {
@@ -57,10 +57,10 @@ public class PlayerInputHandler : MonoBehaviour {
 		}
 	}
 
-    [Tooltip("Whether or not this player's input should be gotten " +
-        "from a controller")]
+	[Tooltip("Whether or not this player's input should be gotten " +
+		"from a controller")]
 	[SerializeField]
-    private bool useController = true;
+	private bool useController = true;
 	public bool UseController {
 		get { return useController; }
 		set {
@@ -83,34 +83,34 @@ public class PlayerInputHandler : MonoBehaviour {
 		}
 	}
 
-    private MovementAxes movement;
-    private ActionButtons actions;
+	private MovementAxes movement;
+	private ActionButtons actions;
 
 
-    void Awake()
-    {
-        ResetInputNames();
-    }
-
-    public float GetHorizontal()
-    {
-        return Input.GetAxisRaw(movement.horizontal);
-    }
-
-    public float GetVertical()
-    {
-        return Input.GetAxisRaw(movement.vertical);
-    }
-
-    public bool GetAction1()
+	void Awake()
 	{
-        return Input.GetButtonDown(actions.action1);
-    }
+		ResetInputNames();
+	}
 
-    public bool GetAction2()
-    {
-        return Input.GetButtonDown(actions.action2);
-    }
+	public float GetHorizontal()
+	{
+		return Input.GetAxisRaw(movement.horizontal);
+	}
+
+	public float GetVertical()
+	{
+		return Input.GetAxisRaw(movement.vertical);
+	}
+
+	public bool GetAction1()
+	{
+		return Input.GetButtonDown(actions.action1);
+	}
+
+	public bool GetAction2()
+	{
+		return Input.GetButtonDown(actions.action2);
+	}
 
 	public static List<ControlSettings> GetAllAction1() {
 		return GetAllAction(0);
@@ -165,8 +165,8 @@ public class PlayerInputHandler : MonoBehaviour {
 		}
 	}
 
-    public void ResetInputNames()
-    {
+	public void ResetInputNames()
+	{
 		string[] joystickNames = Input.GetJoystickNames();
 		if(useController && controlNumber > joystickNames.Length) {
 			Debug.LogWarning(joystickNames.Length + " controllers are connected\n" +
@@ -175,12 +175,12 @@ public class PlayerInputHandler : MonoBehaviour {
 			return;
 		}
 
-        string suffix = useController ? "-GP" : "";
+		string suffix = useController ? "-GP" : "";
 
-        movement.horizontal = "LeftHorizontal-" + controlNumber +
-            suffix;
-        movement.vertical = "LeftVertical-" + controlNumber +
-            suffix;
+		movement.horizontal = "LeftHorizontal-" + controlNumber +
+			suffix;
+		movement.vertical = "LeftVertical-" + controlNumber +
+			suffix;
 
 		if(useController && (joystickNames[PlayerIndex] ==
 			"Sony Computer Entertainment Wireless Controller" ||
@@ -189,18 +189,18 @@ public class PlayerInputHandler : MonoBehaviour {
 			actions.action2 = "Action2-" + controlNumber + suffix + "-SONY";
 		}
 		else {
-	        actions.action1 = "Action1-" + controlNumber + suffix;
-	        actions.action2 = "Action2-" + controlNumber + suffix;
+			actions.action1 = "Action1-" + controlNumber + suffix;
+			actions.action2 = "Action2-" + controlNumber + suffix;
 		}
-    }
+	}
 
-    private void SwapMovementAxes(ref MovementAxes other)
-    {
-        MovementAxes.Swap(ref movement, ref other);
-    }
+	private void SwapMovementAxes(ref MovementAxes other)
+	{
+		MovementAxes.Swap(ref movement, ref other);
+	}
 
-    private void SwapActionButtons(ref ActionButtons other)
-    {
-        ActionButtons.Swap(ref actions, ref other);
-    }
+	private void SwapActionButtons(ref ActionButtons other)
+	{
+		ActionButtons.Swap(ref actions, ref other);
+	}
 }

@@ -9,8 +9,6 @@ public class MG_TimeBomb : MGFramework {
 	public GameObject powerup;
 	float boundsX;
 
-	public 
-
 	int deadPlayers;
 
 	public PlayerActions.ActionType[] actions = new PlayerActions.ActionType[2];
@@ -58,7 +56,7 @@ public class MG_TimeBomb : MGFramework {
 	}
 
 	void UpdateHealth() {
-		for (int i = 0; i < players.Length; ++i) {
+		for (int i = 0; i < numPlayers; ++i) {
 			if (players[i].Health > 0f)
 				players[i].Health -= Time.deltaTime;
 			else {

@@ -14,21 +14,29 @@ public abstract class MGFramework : MonoBehaviour {
 	}
 
 	protected PlayerUtility[] players;
-	public Vector3[] spawnPoints;
+	public Vector3[] spawnPoints = new Vector3[4];
 	protected int numPlayers;
-	public GlobalData data;
+	protected GlobalData data;
 
 	protected const int maxPlayers = 4;
 
 	public float acceleration, drag, maxSpeed, jumpAmount;
-	public Vector3 gravity;
+	public Vector3 gravity = new Vector3(0f, -30f, 0f);
 
 	public GameObject playerPrefab;
 
 	void Start () {
+
 		//variable initialization
 		data = GameObject.FindGameObjectWithTag ("Data").GetComponent<GlobalData> ();
+
+		//following lines only for testing, remove later
+		data.AddPlayerData (data.NumPlayers, false);
+		data.AddPlayerData (data.NumPlayers, false);
+		//end of testing lines
+
 		numPlayers = data.NumPlayers;
+		players = new PlayerUtility[numPlayers];
 
 		StartMinigame();
 	}
@@ -39,6 +47,15 @@ public abstract class MGFramework : MonoBehaviour {
 				UpdateTimer();
 			UpdateUI();
 			GameLoop();
+		}
+	}
+
+	//allows you to edit movement variables in the inspector during runtime.
+	void OnValidate() {
+		for (int i = 0; i < numPlayers; i++) {
+			//set PlayerMovement to minigame settings
+			PlayerMovement mv = players[i].gameObject.GetComponent<PlayerMovement>();
+			setMovementVariables (mv, acceleration, drag, maxSpeed, jumpAmount);
 		}
 	}
 
@@ -62,6 +79,8 @@ public abstract class MGFramework : MonoBehaviour {
 
 	protected void SpawnPlayers(PlayerActions.ActionType[] actions) {
 		for (int i = 0; i < numPlayers; i++) {
+			
+			Debug.Log ("Spawning player: " + i + ".");
 			//create player object
 			GameObject player = (GameObject)Instantiate (playerPrefab, spawnPoints [i], Quaternion.identity);
 
