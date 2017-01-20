@@ -6,7 +6,7 @@ using UnityEditor;
 [CustomEditor(typeof(PlayerInputHandler))]
 [CanEditMultipleObjects]
 public class PlayerInputHandlerEditor : Editor {
-	
+
 	private readonly string[] controlOptions = new string[2] { "Keyboard", "Controller" };
 	private readonly string[] playerNumOptions = new string[4] { "1", "2", "3", "4" };
 
