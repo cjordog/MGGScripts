@@ -22,8 +22,8 @@ public class JumpAction : PlayerAction {
 	}
 
 	public override void StartAction(PlayerMovement movement) {
-		Debug.Log(CanJump);
-		Debug.Log("g: " + grounded + " j: " + jumping);
+//		Debug.Log(CanJump);
+//		Debug.Log("g: " + grounded + " j: " + jumping);
 		if(CanJump) {
 			movement.Jump();
 			grounded = false;

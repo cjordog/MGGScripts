@@ -26,6 +26,7 @@ public class PlayerInputHandlerEditor : Editor {
 
 		// Player Select
 		EditorGUILayout.BeginHorizontal();
+		Undo.RecordObject(script, "Changed Control Number");
 		script.ControlNumber = GUILayout.SelectionGrid(script.ControlNumber - 1, playerNumOptions, 4) + 1;
 		EditorGUILayout.EndHorizontal();
 
@@ -33,6 +34,7 @@ public class PlayerInputHandlerEditor : Editor {
 
 		// Control Method Select
 		EditorGUILayout.BeginHorizontal();
+		Undo.RecordObject(script, "Changed Control Method");
 		script.UseController = GUILayout.SelectionGrid(script.UseController ? 1 : 0,
 			controlOptions, 2) == 1 ? true : false;
 		EditorGUILayout.EndHorizontal();
