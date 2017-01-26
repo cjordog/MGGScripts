@@ -96,7 +96,7 @@ public abstract class MGFramework : MonoBehaviour {
 			players[i] = player.GetComponent<PlayerUtility> ();
 
 			//TODO:handle team allocation here later. passing in as i for now
-			players [i].initializeVariables (spawnPoints [i], 0, players [i].healthcap, i);
+			players [i].initializeVariables (spawnPoints [i], 0, players [i].healthcap, i, i);
 
 			//set PlayerMovement to minigame settings
 			PlayerMovement mv = player.GetComponent<PlayerMovement>();

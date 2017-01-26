@@ -83,11 +83,12 @@ public class PlayerUtility : MonoBehaviour {
 		gameObject.transform.position = spawnPoint;
 	}
 
-	public void initializeVariables(Vector3 spawnPoint, float points, float health, int team)
+	public void initializeVariables(Vector3 spawnPoint, float points, float health, int team, int pNum)
 	{
 		SpawnPoint = spawnPoint;
 		Points = points;
 		Health = health;
 		Team = team;
+		playerNum = pNum;
 	}
 }
