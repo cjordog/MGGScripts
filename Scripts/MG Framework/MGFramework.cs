@@ -104,15 +104,20 @@ public abstract class MGFramework : MonoBehaviour {
 		}
 	}
 
-	protected virtual bool Respawn(uint num) {
+	protected virtual bool Respawn(int num) {
 		//num is 0-3 inclusive
 		if (canRespawn && players [num].NumLives != 0) {
 			players [num].Respawn ();
 			players [num].NumLives--;
-		} else
+		} else {
 			killPlayer (num);
-		if (players [num].NumLives == 0)
+			return false;
+		}
+		if (players [num].NumLives == 0) {
 			killPlayer (num);
+			return false;
+		}
+		return true;
 	}
 
 	void RulesPopup(string description,
