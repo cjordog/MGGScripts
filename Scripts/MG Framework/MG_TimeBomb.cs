@@ -28,6 +28,8 @@ public class MG_TimeBomb : MGFramework {
 		Bounds bounds = planeMesh.bounds;
 		boundsX = planeMesh.bounds.size.x * 5f;
 
+		canRespawn = false;
+
 		acceleration = 80f;
 		drag = 10f;
 		maxSpeed = 10f;
@@ -40,6 +42,8 @@ public class MG_TimeBomb : MGFramework {
 			{ new Vector3 (5, 0, 5), new Vector3 (5, 0, -5), new Vector3 (-5, 0, -5), new Vector3 (-5, 0, 5) };
 		SpawnPlayers(actions);
 		//SpawnPlayers(actions);
+
+		setPlayerLives (1);
 
 		// Start spawning powerups
 		SpawnPowerup();

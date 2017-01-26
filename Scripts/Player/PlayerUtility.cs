@@ -20,6 +20,12 @@ public class PlayerUtility : MonoBehaviour {
 		set { isDead = true; }
 	}
 
+	private int numLives;
+	public int NumLives {
+		get { return numLives; }
+		set { numLives = value; }
+	}
+
 	private float points;
 	public float Points {
 		get { return points; }
@@ -67,8 +73,8 @@ public class PlayerUtility : MonoBehaviour {
 
 	public void Respawn()
 	{
-		gameObject.transform.position = spawnPoint;
 		rb.velocity = Vector3.zero;
+		gameObject.transform.position = spawnPoint;
 	}
 
 	public void initializeVariables(Vector3 spawnPoint, float points, float health, int team)

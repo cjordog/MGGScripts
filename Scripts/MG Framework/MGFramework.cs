@@ -17,6 +17,7 @@ public abstract class MGFramework : MonoBehaviour {
 	public Vector3[] spawnPoints = new Vector3[4];
 	protected int numPlayers;
 	protected GlobalData data;
+	protected bool canRespawn = true;
 
 	protected const int maxPlayers = 4;
 
@@ -104,7 +105,14 @@ public abstract class MGFramework : MonoBehaviour {
 	}
 
 	protected virtual bool Respawn(uint num) {
-		return true;
+		//num is 0-3 inclusive
+		if (canRespawn && players [num].NumLives != 0) {
+			players [num].Respawn ();
+			players [num].NumLives--;
+		} else
+			killPlayer (num);
+		if (players [num].NumLives == 0)
+			killPlayer (num);
 	}
 
 	void RulesPopup(string description,
@@ -119,11 +127,21 @@ public abstract class MGFramework : MonoBehaviour {
 	}
 
 	protected virtual void EndMinigame() {
+		//TODO::update player info back to globaldata
 		isRunning = false;
 	}
 
 	protected virtual void killPlayer(int playerNum) {
-		//fill later
+		//players indexed 0-3
+		players[playerNum].gameObject.SetActive(false);
+	}
+
+	//set to -1 for infinite lives
+	protected void setPlayerLives(int lives)
+	{
+		for (int i = 0; i < numPlayers; i++) {
+			players [i].NumLives = lives;
+		}
 	}
 
 	protected virtual void setMovementVariables(PlayerMovement pm, float accel, float drag, float maxSpeed, float jumpHeight)
