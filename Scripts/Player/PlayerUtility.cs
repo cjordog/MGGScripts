@@ -14,6 +14,12 @@ public class PlayerUtility : MonoBehaviour {
 		set { spawnPoint = value; }
 	}
 
+	private int playerNum;
+	public int PlayerNum {
+		get { return playerNum; }
+		set { playerNum = value; }
+	}
+
 	private bool isDead;
 	public bool IsDead {
 		get { return isDead; }

@@ -4,9 +4,18 @@ using UnityEngine;
 
 public class DeathZone : MonoBehaviour {
 
+	[SerializeField] MGFramework framework;
+
+	void Start() {
+		framework = GameObject.FindGameObjectWithTag ("Framework").GetComponent<MGFramework>();
+	}
+
 	void OnTriggerEnter(Collider other) {
 		if (other.tag == "Player") {
-			other.gameObject.GetComponentInParent<PlayerUtility> ().Respawn ();
+			int playerNum = other.gameObject.GetComponent<PlayerUtility> ().PlayerNum;
+			framework.Respawn (playerNum);
+		} else {
+			Destroy (other.gameObject);
 		}
 	}
 }
