@@ -104,7 +104,7 @@ public abstract class MGFramework : MonoBehaviour {
 		}
 	}
 
-	protected virtual bool Respawn(int num) {
+	public virtual bool Respawn(int num) {
 		//num is 0-3 inclusive
 		if (canRespawn && players [num].NumLives != 0) {
 			players [num].Respawn ();
