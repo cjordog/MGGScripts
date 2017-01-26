@@ -4,10 +4,9 @@ using System.Collections;
 public class GlobalData : MonoBehaviour {
 
 	//public for testing, should be private
-	private int numPlayers;
+	private int numPlayers = 0;
 	public int NumPlayers {
 		get { return numPlayers; }
-		set { numPlayers = value; }
 	}
 
 	public struct PlayerData {
@@ -35,6 +34,7 @@ public class GlobalData : MonoBehaviour {
 		if(numPlayers < 3 && numPlayers >= 0) {
 			players[numPlayers].points = 0;
 			players[numPlayers].hats = new string[5];
+			players[numPlayers].controlNum = controlNum;
 			players [numPlayers].useController = useController;
 			numPlayers++;
 			return numPlayers - 1;

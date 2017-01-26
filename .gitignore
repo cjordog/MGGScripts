@@ -39,3 +39,7 @@ ehthumbs.db
 # ========== #
 
 *.meta
+
+Scenes/testScene.unity
+
+*.unity

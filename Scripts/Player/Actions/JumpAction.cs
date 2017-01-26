@@ -6,6 +6,8 @@ public class JumpAction : PlayerAction {
 
 	private const float JUMP_DURATION = 0.5f;
 	private const float JUMP_COOLDOWN = 0.5f;
+	private const float THRESHOLD_ANGLE = 30;
+	private float THRESHOLD_GROUNDED_VAL = Mathf.Cos(THRESHOLD_ANGLE);
 
 	private bool grounded;
 	private bool jumping = false;
@@ -39,7 +41,13 @@ public class JumpAction : PlayerAction {
 
 	void LandOnGround(GameObject sender, Collision col) {
 		if(col.gameObject.layer == groundLayer) {
-			grounded = true;
+			ContactPoint[] contacts = col.contacts;
+			for(int i = 0; i < contacts.Length; i++) {
+				if(contacts[i].normal.y >= THRESHOLD_GROUNDED_VAL) {
+					grounded = true;
+					return;
+				}
+			}
 		}
 	}
 
