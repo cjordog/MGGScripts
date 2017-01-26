@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GlobalData : MonoBehaviour {
 
-	private int numPlayers = 0;
+	[SerializeField] private int numPlayers = 0;
 	public int NumPlayers {
 		get { return numPlayers; }
 	}
