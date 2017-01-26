@@ -68,6 +68,7 @@ public class PlayerUtility : MonoBehaviour {
 	public void Respawn()
 	{
 		gameObject.transform.position = spawnPoint;
+		rb.velocity = Vector3.zero;
 	}
 
 	public void initializeVariables(Vector3 spawnPoint, float points, float health, int team)
