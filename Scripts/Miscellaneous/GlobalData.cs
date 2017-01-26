@@ -4,7 +4,7 @@ using System.Collections;
 public class GlobalData : MonoBehaviour {
 
 	//public for testing, should be private
-	public int numPlayers;
+	private int numPlayers;
 	public int NumPlayers {
 		get { return numPlayers; }
 		set { numPlayers = value; }
