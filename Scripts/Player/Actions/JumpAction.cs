@@ -7,7 +7,7 @@ public class JumpAction : PlayerAction {
 	private const float JUMP_DURATION = 0.5f;
 	private const float JUMP_COOLDOWN = 0.5f;
 	private const float THRESHOLD_ANGLE = 30;
-	private float THRESHOLD_GROUNDED_VAL = Mathf.Cos(THRESHOLD_ANGLE);
+	private float THRESHOLD_GROUNDED_VAL = Mathf.Cos(Mathf.Deg2Rad * THRESHOLD_ANGLE);
 
 	private bool grounded;
 	private bool jumping = false;
