@@ -13,9 +13,11 @@ public class MG_TimeBomb : MGFramework {
 
 	public PlayerActions.ActionType[] actions = new PlayerActions.ActionType[2];
 
-	void Update() {
-		if (isRunning)
-			UpdateHealth ();
+	protected override void GameLoop() {
+		UpdateHealth ();
+		if(CheckForPlayerWin()) {
+			EndMinigame();
+		}
 	}
 
 	protected override void StartMinigame ()
@@ -74,5 +76,30 @@ public class MG_TimeBomb : MGFramework {
 			if (deadPlayers == players.Length)
 				EndMinigame ();
 		}
+	}
+
+	bool CheckForPlayerWin() {
+		int playersDied = 0;
+		for(int i = 0; i < players.Length; i++) {
+			if(players[i].IsDead && playerPlaces[i] <= 0) {
+				playerPlaces[i] = nextPlayerPlace;
+				playersDied++;
+			}
+		}
+
+		if(playersDied > 1) {
+			for(int i = 0; i < players.Length; i++) {
+				if(playerPlaces[i] == nextPlayerPlace) {
+					playerPlaces[i] += playersDied - 1;
+				}
+			}
+		}
+
+		nextPlayerPlace += playersDied;
+
+		if(nextPlayerPlace <= 0) {
+			return true;
+		}
+		return false;
 	}
 }
