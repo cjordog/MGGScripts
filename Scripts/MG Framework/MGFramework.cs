@@ -14,6 +14,8 @@ public abstract class MGFramework : MonoBehaviour {
 	}
 
 	protected PlayerUtility[] players;
+	protected int[] playerPlaces;
+	protected int nextPlayerPlace;
 	public Vector3[] spawnPoints = new Vector3[4];
 	protected int numPlayers;
 	protected GlobalData data;
@@ -38,6 +40,8 @@ public abstract class MGFramework : MonoBehaviour {
 
 		numPlayers = data.NumPlayers;
 		players = new PlayerUtility[numPlayers];
+		playerPlaces = new int[numPlayers];
+		nextPlayerPlace = numPlayers;
 
 		StartMinigame();
 	}
@@ -120,10 +124,20 @@ public abstract class MGFramework : MonoBehaviour {
 		return true;
 	}
 
+	/// <summary>
+	/// Ruleses the popup.
+	/// </summary>
+	/// <param name="description">Description.</param>
+	/// <param name="action1">Action1.</param>
+	/// <param name="action2">Action2.</param>
+	/// <param name="leftAxis">Left axis.</param>
 	void RulesPopup(string description,
 		string action1, string action2, string leftAxis = "Move") {
 	}
 
+	/// <summary>
+	/// Starts the minigame.
+	/// </summary>
 	protected virtual void StartMinigame() {
 		// Do this after countdown
 		isRunning = true;
@@ -131,17 +145,29 @@ public abstract class MGFramework : MonoBehaviour {
 		// Get player references
 	}
 
+	/// <summary>
+	/// Ends the minigame.
+	/// </summary>
 	protected virtual void EndMinigame() {
 		//TODO::update player info back to globaldata
 		isRunning = false;
+		Debug.Log("Player Win");
 	}
 
+	/// <summary>
+	/// Kills the player.
+	/// </summary>
+	/// <param name="playerNum">Player number.</param>
 	protected virtual void killPlayer(int playerNum) {
 		//players indexed 0-3
 		players[playerNum].gameObject.SetActive(false);
 	}
 
 	//set to -1 for infinite lives
+	/// <summary>
+	/// Sets the player lives.
+	/// </summary>
+	/// <param name="lives">Lives.</param>
 	protected void setPlayerLives(int lives)
 	{
 		for (int i = 0; i < numPlayers; i++) {
