@@ -31,10 +31,10 @@ public abstract class MGFramework : MonoBehaviour {
 		//variable initialization
 		data = GameObject.FindGameObjectWithTag ("Data").GetComponent<GlobalData> ();
 
-		//following lines only for testing, remove later
-		data.AddPlayerData (data.NumPlayers, false);
-		data.AddPlayerData (data.NumPlayers, false);
-		//end of testing lines
+//		//following lines only for testing, remove later
+//		data.AddPlayerData (data.NumPlayers, false);
+//		data.AddPlayerData (data.NumPlayers, false);
+//		//end of testing lines
 
 		numPlayers = data.NumPlayers;
 		players = new PlayerUtility[numPlayers];

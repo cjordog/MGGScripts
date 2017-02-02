@@ -3,7 +3,7 @@ using System.Collections;
 
 public class rbCollisions : MonoBehaviour {
 
-	private PlayerActionHandler action;
+	public PlayerActionHandler action;
 
 	void Start()
 	{
@@ -12,7 +12,7 @@ public class rbCollisions : MonoBehaviour {
 
 	void OnCollisionEnter(Collision col) {
 		for(int i = 0; i < 2; i++)
-			action.Actions[i].collisionHandlers.Enter(gameObject, col);
+ 			action.Actions[i].collisionHandlers.Enter(gameObject, col);
 	}
 
 	void OnCollisionStay(Collision col) {
